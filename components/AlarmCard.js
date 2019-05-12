@@ -14,6 +14,7 @@ import {
 export default class AlarmsCard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = this.props.alarm
   }
 
   aestheticTime = () => {
@@ -23,13 +24,41 @@ export default class AlarmsCard extends React.Component {
     return (newHour<10?'0'+newHour:newHour)+':'+(minutes<10?'0'+minutes:minutes)+' '+(hours<12?'AM':'PM')
   }
 
+  POST = (url, data) => {
+    fetch(url, {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+  } 
+
+  _handleSubmit = async () => {
+    try {
+      let url = 'http://ec2-13-58-151-189.us-east-2.compute.amazonaws.com/alarms/update'
+      var data = this.state
+      data.repeat = JSON.stringify(data.repeat)
+      //data.hours = JSON.stringify(data.hours)
+      //data.minutes = JSON.stringify(data.minutes)
+      data=[data]
+      this.POST(url, data)
+    } catch (error) {
+    }
+  }
+
   render() {
-    const alarm = this.props.alarm
+    var alarm = this.state
+    if((typeof alarm.repeat)=="string") {
+      alarm.repeat = JSON.parse(alarm.repeat)
+    }
+    
+      
     return (
-      <TouchableNativeFeedback>
+      <TouchableNativeFeedback onPress={() => { this.props.onEdit(alarm) }}>
       <View style={styles.alarmCardContainer}>
-        <View style={styles.details}>
-          
+        <View style={styles.details}>    
             <Text style={styles.label}>{alarm.label}</Text>
             <Text style={styles.time}>{this.aestheticTime()}</Text>
             <View style={styles.repeat}>
@@ -41,10 +70,13 @@ export default class AlarmsCard extends React.Component {
               <Text style={alarm.repeat[5]?styles.activeDay:styles.inactiveDay}>FRI</Text>
               <Text style={alarm.repeat[6]?styles.activeDay:styles.inactiveDay}>SAT</Text>
             </View>
-       
         </View>
         <View style={styles.switch}>
-          <Switch value={alarm.active} trackColor={{true: '#d1495b'}} thumbColor={'#fe5f55'}/>
+          <Switch value={alarm.active} trackColor={{true: '#3459B5'}} thumbColor={'#497dff'} onValueChange={async ()=>{
+            await this.setState({ active: !this.state.active })
+            await this._handleSubmit()
+            this.props.onChangeActive()
+          }}/>
         </View>
       </View>
       </TouchableNativeFeedback>
@@ -74,8 +106,8 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   activeDay: {
-    fontFamily: 'opensans',
-    color: '#fe5f55'
+    fontFamily: 'opensans-semibold',
+    color: '#497dff'
   },
   details: {
     flex: 3

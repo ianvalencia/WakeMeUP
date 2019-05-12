@@ -1,0 +1,67 @@
+{
+  "alarms": [
+    {
+      "id": 1,
+      "label": "1st Class",
+      "hours": 7,
+      "minutes": 0,
+      "active": true,
+      "repeat": [0,0,1,0,0,0,0],
+      "special": false
+    },
+    {
+      "id": 2,
+      "label": "Meds",
+      "hours": 12,
+      "minutes": 0,
+      "active": true,
+      "repeat": [0,0,0,0,0,1,0],
+      "special": false
+    },
+    {
+      "id": 3,
+      "label": "Study",
+      "hours": 16,
+      "minutes": 32,
+      "active": true,
+      "repeat": [0,0,0,1,0,1,0],
+      "special": false
+    },
+    {
+      "id": 4,
+      "label": "Comeback Stage",
+      "hours": 20,
+      "minutes": 30,
+      "active": true,
+      "repeat": [0,0,0,0,0,0,0],
+      "special": false
+    },
+    {
+      "id": 5,
+      "label": "Debut Stage",
+      "hours": 12,
+      "minutes": 0,
+      "active": true,
+      "repeat": [0,0,0,0,0,0,0],
+      "special": false
+    },
+    {
+      "id": 6,
+      "label": "Hehe",
+      "hours": 16,
+      "minutes": 32,
+      "active": true,
+      "repeat": [0,0,0,0,0,0,0],
+      "special": false
+    },
+    {
+      "id": 7,
+      "label": "Uwian",
+      "hours": 20,
+      "minutes": 30,
+      "active": true,
+      "repeat": [0,0,0,0,0,0,0],
+      "special": false
+    }
+  ]
+}

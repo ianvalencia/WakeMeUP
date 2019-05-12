@@ -17,7 +17,7 @@ export default class AlarmsList extends React.Component {
     }
   }
 
-  _keyExtractor = (item, index) => JSON.stringify(item.id);
+  _keyExtractor = (item, index) => JSON.stringify(item.aid);
 
   renderSeparator = () => {
     return (
@@ -39,11 +39,10 @@ export default class AlarmsList extends React.Component {
       )
     }
     else {
-      var alarm = this.props.alarms[0]
       return (
         <FlatList
           data={this.props.alarms}
-          renderItem={({item}) => <AlarmCard alarm={item} />}
+          renderItem={({item}) => <AlarmCard alarm={item} onEdit={this.props.onEdit} onChangeActive={this.props.onChangeActive}/>}
           keyExtractor={this._keyExtractor}
           ItemSeparatorComponent={this.renderSeparator}
           showsVerticalScrollIndicator={false}
